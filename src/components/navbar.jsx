@@ -1,73 +1,81 @@
 import logo from '../assets/img/Logo.svg';
 import logoSm from '../assets/img/Logo-sm.svg';
+import menuIcon from '../assets/img/menu-icon.svg';
+import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { CartContext } from '../context/cart';
 
 export const Navbar = () => {
+    const { itemCount, setCartOpen } = useContext(CartContext);
     return (
         <>
-        <div class="nav-wrapper">
-            <div class="container">
-                <nav class="header-nav">
-                    <div class="brand">
-                        <span class="menu-btn">
-                            <img src="./img/menu-icon.svg" alt=""/>
+        <div className="nav-wrapper">
+            <div className="container">
+                <nav className="header-nav">
+                    <div className="brand">
+                        <span className="menu-btn">
+                            <img src={menuIcon} alt=""/>
                         </span>
-                        <a href="#">
-                            <img class="logo" src={logo} alt=""/>
-                            <img class="logo-sm" src={logoSm} alt=""/>
-                        </a>
+                        <Link to="/">
+                            <img className="logo" src={logo} alt=""/>
+                            <img className="logo-sm" src={logoSm} alt=""/>
+                        </Link>
                     </div>
-                    <ul class="nav-links">
-                        <li class="nav-link-item"><a href="#">Shop</a></li>
-                        <li class="nav-link-item"><a href="#">Contact</a></li>
-                        <li class="nav-link-item"><a href="./login.html">Sign in</a></li>
+                    <ul className="nav-links">
+                        <li className="nav-link-item"><a href="#">Shop</a></li>
+                        <li className="nav-link-item"><a href="#">Contact</a></li>
+                        <li className="nav-link-item"><Link to="/login">Sign in</Link></li>
                     </ul>
-                    <div class="search-and-cart">
-                        <div class="search">
-                            <i class="feather-search"></i>
+                    <div className="search-and-cart">
+                        <div className="search">
+                            <i className="feather-search"></i>
                             <input type="text" placeholder="search" />
                         </div>
                         <div>
-                            <i class="feather-shopping-bag cart-btn"></i>
+                            <div className="cart-btn" onClick={() => setCartOpen(true)}>
+                                <i className="feather-shopping-bag "></i>
+                                {itemCount > 0 && <span className="item-counter">{itemCount}</span>}
+                            </div>
                         </div>
                     </div>
                 </nav>
             </div>
         </div>
 
-        <div class="mobile-menu-wrapper">
-            <div class="mobile-menu">
-                <div class="mobile-menu-flex">
-                    <div class="top">
-                        <div class="close">
-                            <span class="close-menu">
-                                <i class="feather-x"></i>
+        <div className="mobile-menu-wrapper">
+            <div className="mobile-menu">
+                <div className="mobile-menu-flex">
+                    <div className="top">
+                        <div className="close">
+                            <span className="close-menu">
+                                <i className="feather-x"></i>
                             </span>
                         </div>
-                        <div class="logo-area">
-                            <a href="#">
-                                <img class="logo" src={logo} alt=""/>
-                            </a>
+                        <div className="logo-area">
+                            <Link to="/">
+                                <img className="logo" src={logo} alt=""/>
+                            </Link>
                         </div>
                     </div>
-                    <ul class="nav-links">
-                        <li class="nav-link-item"><a href="#">Shop</a></li>
-                        <li class="nav-link-item"><a href="#">Contact</a></li>
-                        <li class="nav-link-item"><a href="./login.html">Sign in</a></li>
+                    <ul className="nav-links">
+                        <li className="nav-link-item"><a href="#">Shop</a></li>
+                        <li className="nav-link-item"><a href="#">Contact</a></li>
+                        <li className="nav-link-item"><Link to="/login">Sign in</Link></li>
                     </ul>
-                    <ul class="social-links">
-                        <li class="social-link">
-                            <a href="#"><i class="feather-instagram"></i></a>
+                    <ul className="social-links">
+                        <li className="social-link">
+                            <a href="#"><i className="feather-instagram"></i></a>
                         </li>
-                        <li class="social-link">
-                            <a href="#"><i class="feather-facebook"></i></a>
+                        <li className="social-link">
+                            <a href="#"><i className="feather-facebook"></i></a>
                         </li>
-                        <li class="social-link">
-                            <a href="#"><i class="feather-twitter"></i></a>
+                        <li className="social-link">
+                            <a href="#"><i className="feather-twitter"></i></a>
                         </li>
                     </ul>
                 </div>
             </div>
-            <div class="menu-safe-area"></div>
+            <div className="menu-safe-area"></div>
         </div>
         </>
     )
