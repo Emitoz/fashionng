@@ -6,24 +6,36 @@ import bgImage from '../../assets/img/auth-bg.jpg';
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-import { signInWithGoogle } from "../../firebase/firebase.utils";
+import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
+import { signInWithEmailAndPassword } from "@firebase/auth";
 
 export const Login = () => {
 
     const [user, setUser] = useState({ email: '', password: '' });
 
-    const handleSubmit = e => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        alert(user.email, 'login')
+        const { email, password } = user;
 
-        setUser({ email: '', password: '' });
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+
+            setUser({ email: '', password: '' });
+        } catch (error) {
+            console.log('Error signing in:', error);
+        }
+
     }
 
     const handleChange = e => {
         const { value, name } = e.target;
         setUser({ ...user, [name]: value });
-        console.log(user);
+    }
+
+    const handleGoogleSignIn = () => {
+        signInWithGoogle();
+        // window.location = '/';
     }
 
     return (
@@ -41,6 +53,7 @@ export const Login = () => {
                         placeholder="Your email address"
                         value={user.email}
                         onChange={handleChange}
+                        required={true}
                     />
                     <FormInput 
                         type="password" 
@@ -48,9 +61,10 @@ export const Login = () => {
                         placeholder="Your password"
                         value={user.password}
                         onChange={handleChange}
+                        required={true}
                     />
                     <Button type="submit" theme="gold" text="Login to your account"/>
-                    <Button type="button" theme="ghost" text="Login with Google" clickHandler={signInWithGoogle}/>
+                    <Button type="button" theme="ghost" text="Login with Google" clickHandler={handleGoogleSignIn}/>
                     <p>Not on fashionng? <Link to="/register" className="text-link">Register now</Link></p>
                 </form>
             </div>

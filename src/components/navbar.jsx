@@ -1,11 +1,17 @@
+import { useContext } from 'react';
+import { Link } from 'react-router-dom';
+
+import { CartContext } from '../context/cart';
+import { AuthContext } from '../context/auth';
+import { auth } from '../firebase/firebase.utils';
+
 import logo from '../assets/img/Logo.svg';
 import logoSm from '../assets/img/Logo-sm.svg';
 import menuIcon from '../assets/img/menu-icon.svg';
-import { Link } from 'react-router-dom';
-import { useContext } from 'react';
-import { CartContext } from '../context/cart';
+
 
 export const Navbar = () => {
+    const { currentUser } = useContext(AuthContext);
     const { itemCount, setCartOpen } = useContext(CartContext);
     return (
         <>
@@ -24,7 +30,10 @@ export const Navbar = () => {
                     <ul className="nav-links">
                         <li className="nav-link-item"><a href="#">Shop</a></li>
                         <li className="nav-link-item"><a href="#">Contact</a></li>
-                        <li className="nav-link-item"><Link to="/login">Sign in</Link></li>
+                        {
+                            currentUser !== null ? <li className="nav-link-item" onClick={() => auth.signOut()}><a href="#"><i className="feather-user"></i> {currentUser.displayName}</a></li>
+                            : <li className="nav-link-item"><Link to="/login">Sign in</Link></li>
+                        }
                     </ul>
                     <div className="search-and-cart">
                         <div className="search">

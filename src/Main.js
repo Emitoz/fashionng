@@ -1,15 +1,23 @@
+import { useContext, useEffect } from "react"
 import { CartWrapper } from "./components/cartWrapper"
 import { Footer } from "./components/footer"
 import { Navbar } from "./components/navbar"
-import { CartProvider } from "./context/cart"
+import { CartContext } from "./context/cart"
 
 export const Main = ({ Content }) => {
-    return (
-      <CartProvider>
-        <Navbar />
-        <Content />
-        <Footer />
-        <CartWrapper />
-      </CartProvider>
-    )
+
+  const { setCartOpen } = useContext(CartContext);
+
+  useEffect(() => {
+    setCartOpen(false);
+  }, []);
+
+  return (
+    <>
+      <Navbar />
+      <Content />
+      <Footer />
+      <CartWrapper />
+    </>
+  )
 }
