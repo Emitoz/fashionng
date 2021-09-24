@@ -8,6 +8,7 @@ import { CategoryProducts } from "./pages/category-products";
 import { Main } from "./Main";
 import { AuthProvider } from "./context/auth";
 import { CartProvider } from "./context/cart";
+import { ProductDetails } from "./pages/product-details";
 
 
 function App() {
@@ -18,6 +19,8 @@ function App() {
           <Route exact path="/"><Main Content={HomePage}/></Route>
           <Route path="/checkout"><Main Content={Checkout}/></Route>
           <Route path="/categories/:category"><Main Content={CategoryProducts}/></Route>
+          <Route path="/products/:product"><Main Content={ProductDetails}/></Route>
+          
           <Route path="/login"><Login /></Route>
           <Route path="/register"><Register /></Route>
         </CartProvider>

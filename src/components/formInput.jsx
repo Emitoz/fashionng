@@ -1,4 +1,4 @@
-export const FormInput = ({ isTextArea, type, placeholder, name, value, onChange, required }) => {
+export const FormInput = ({ isTextArea, type, placeholder, name, value, onChange, required, autofocus }) => {
     return (
         <>
             { 
@@ -11,6 +11,7 @@ export const FormInput = ({ isTextArea, type, placeholder, name, value, onChange
                     value={value} 
                     onChange={onChange}
                     required={required}
+                    autoFocus={autofocus}
                 /> 
                 :
                 <textarea 
@@ -20,6 +21,7 @@ export const FormInput = ({ isTextArea, type, placeholder, name, value, onChange
                     value={value} 
                     onChange={onChange}
                     required={required}
+                    autoFocus={autofocus}
                 ></textarea>
             }
         </>

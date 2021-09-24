@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import { CartContext } from "../context/cart";
 
 export const CartItem = ({ item }) => {
@@ -37,19 +38,28 @@ export const CartItem = ({ item }) => {
     return (
         <div className="cart-item">
             <div className="cart-item-flex">
-                <div className="cart-image-wrapper">
-                    <div className="cart-image-line"></div>
-                    <div className="cart-image bg-image" style={{ background: `url(${item.images.main})` }}></div>
-                </div>
+                <Link to={{ pathname: `/products/${item.name}`, state: { product: item } }}>
+                    <div className="cart-image-wrapper">
+                        <div className="cart-image-line"></div>
+                        <div className="cart-image bg-image" style={{ background: `url(${item.images.main})` }}></div>
+                    </div>
+                </Link>
                 <div className="cart-content">
-                    <h4 className="cart-item-name">{item.name}</h4>
+                    <Link to={{ pathname: `/products/${item.name}`, state: { product: item } }} className="item-card-link">
+                        <h4 className="cart-item-name">{item.name}</h4>
+                    </Link>
                     <div className="item-properties">
-                        <div className="item-property">
-                            Size <span className="item-value">{item.size}</span>
-                        </div>
-                        <div className="item-property">
-                            Colour <span className="item-value">{item.color}</span>
-                        </div>
+                        { item.sizes &&
+                            <div className="item-property">
+                                Size <span className="item-value">{item.sizes[0]}</span>
+                            </div>
+                        }
+                        {
+                            item.colors &&
+                            <div className="item-property">
+                                Colour <span className="item-value">{item.colors[0]}</span>
+                            </div>
+                        }
                     </div>
                     <div className="cart-price-actions">
                         <div><span className="cart-item-price">&#8358;{item.price}</span> <span className="item-qty">x {item.quantity}</span></div>

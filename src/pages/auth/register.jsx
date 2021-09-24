@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "@firebase/auth";
-import { auth, createUserProfile } from "../../firebase/firebase.utils";
+import { auth, createUserProfile, signInWithGoogle } from "../../firebase/firebase.utils";
 
 import { Button } from "../../components/button";
 import { FormInput } from "../../components/formInput";
@@ -41,6 +41,10 @@ export const Register = () => {
         setUser({ ...user, [name]: value });
     }
 
+    const handleGoogleSignIn = () => {
+        signInWithGoogle();
+    }
+
     return (
         <div className="auth-grid">
             <div className="auth-content">
@@ -75,7 +79,7 @@ export const Register = () => {
                         required={true}
                     />
                     <Button theme="gold" text="Create your account" icon=""/>
-                    <Button type="button" theme="ghost" text="Register with Google"/>
+                    <Button type="button" theme="ghost" text="Register with Google" clickHandler={handleGoogleSignIn}/>
                     <p>Already on fashionng? <Link to="/login" className="text-link">Login</Link></p>
                 </form>
             </div>
