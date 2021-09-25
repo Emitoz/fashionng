@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useContext } from "react";
 import { useLocation } from "react-router";
 import { Button } from "../../components/button";
@@ -9,12 +10,15 @@ export const ProductDetails = () => {
 
     const { items, setItems, itemCount, setItemCount, priceTotal, setPriceTotal } = useContext(CartContext);
 
+    const [ activeSize, setActiveSize ] = useState(product.sizes ? product.sizes[0] : null);
+    const [ activeColor, setActiveColor ] = useState(product.colors ? product.colors[0] : null);
+
     const addItemToCart = product => {
         if (items.some(item => item.id === product.id)) {
             // setItems(items.map(item => item.id === product.id ? { ...product, quantity: product.quantity + 1 } : item));
             return;
         };
-        setItems([...items, {...product, quantity: 1}]);
+        setItems([...items, {...product, quantity: 1, color: activeColor, size: activeSize}]);
         setItemCount(itemCount + 1);
         setPriceTotal(priceTotal + product.price);
     }
@@ -34,7 +38,13 @@ export const ProductDetails = () => {
                                 <div className="info-flex">
                                     {
                                         product.sizes
-                                            .map((size, index) => <div key={index} className={`size active`}>{size}</div>)                               
+                                            .map((size, index) => 
+                                                <div 
+                                                    key={index} 
+                                                    className={size === activeSize ? 'size active' : 'size'}
+                                                    onClick={() => setActiveSize(size)}>
+                                                        {size}
+                                                </div>)                               
                                     }
                                 </div>
                             </div>
@@ -49,8 +59,9 @@ export const ProductDetails = () => {
                                             .map((color, index) => 
                                                 <div 
                                                     key={index} 
-                                                    className={`color active`} 
-                                                    style={{background: `${color}`, color: color.toLowerCase() !== 'black' ? 'black': '#E3D6BB' }}>
+                                                    className={color === activeColor ? 'color active' : 'color'} 
+                                                    style={{background: `${color}`, color: color.toLowerCase() !== 'black' ? 'black': '#E3D6BB' }}
+                                                    onClick={() => setActiveColor(color)}>
                                                     {color}
                                                 </div>)                               
                                     }

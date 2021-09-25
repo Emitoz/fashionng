@@ -49,15 +49,15 @@ export const CartItem = ({ item }) => {
                         <h4 className="cart-item-name">{item.name}</h4>
                     </Link>
                     <div className="item-properties">
-                        { item.sizes &&
+                        { item.size &&
                             <div className="item-property">
-                                Size <span className="item-value">{item.sizes[0]}</span>
+                                Size <span className="item-value">{item.size}</span>
                             </div>
                         }
                         {
-                            item.colors &&
+                            item.color &&
                             <div className="item-property">
-                                Colour <span className="item-value">{item.colors[0]}</span>
+                                Colour <span className="item-value">{item.color}</span>
                             </div>
                         }
                     </div>

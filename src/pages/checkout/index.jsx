@@ -40,7 +40,7 @@ export const Checkout = (props) => {
                     </div>
                     <div className="gray-line"></div>
                     <div className="confirm-order">
-                        <p><i className="feather-info"></i> By clicking on confirm order you approve payment of <span className="total"></span> for the above items</p>
+                        <p><i className="feather-info"></i> By clicking on confirm order you approve payment of <span className="total">&#8358;{priceTotal}</span> for the above items</p>
                         <Button text="Confirm order" theme="gold" icon="feather-arrow-right-circle"/>
                     </div>
                 </form>
