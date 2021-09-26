@@ -14,11 +14,10 @@ import { SearchResults } from './searchResults';
 import logo from '../assets/img/Logo.svg';
 import logoSm from '../assets/img/Logo-sm.svg';
 import menuIcon from '../assets/img/menu-icon.svg';
+import { connect } from 'react-redux';
 
-
-
-export const Navbar = () => {
-    const { currentUser } = useContext(AuthContext);
+const Navbar = ({ currentUser }) => {
+    // const { currentUser } = useContext(AuthContext);
     const { itemCount, setCartOpen } = useContext(CartContext);
     const { searchMode, setSearchMode } = useContext(CommonContext);
 
@@ -39,6 +38,8 @@ export const Navbar = () => {
         console.log(products);
         console.log(categories);
     }
+
+    console.log(currentUser);
 
     return (
         <>
@@ -133,3 +134,9 @@ export const Navbar = () => {
     </>
     )
 }
+
+const mapStateToProps = state => ({
+    currentUser: state.user.currentUser
+});
+
+export default connect(mapStateToProps)(Navbar);
