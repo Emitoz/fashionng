@@ -12,15 +12,26 @@ export const ProductDetails = () => {
 
     const [ activeSize, setActiveSize ] = useState(product.sizes ? product.sizes[0] : null);
     const [ activeColor, setActiveColor ] = useState(product.colors ? product.colors[0] : null);
+    const [ quantity, setQuantity ] = useState(1);
 
     const addItemToCart = product => {
         if (items.some(item => item.id === product.id)) {
             // setItems(items.map(item => item.id === product.id ? { ...product, quantity: product.quantity + 1 } : item));
             return;
         };
-        setItems([...items, {...product, quantity: 1, color: activeColor, size: activeSize}]);
+        setItems([...items, {...product, quantity, color: activeColor, size: activeSize}]);
         setItemCount(itemCount + 1);
         setPriceTotal(priceTotal + product.price);
+    }
+
+    const increaseQuantity = () => {
+        setQuantity(quantity + 1);
+    }
+
+    const decreaseQuantity = () => {
+        if (quantity > 1) {
+            setQuantity(quantity - 1);
+        }
     }
 
     return (
@@ -68,6 +79,12 @@ export const ProductDetails = () => {
                                 </div>
                             </div>
                         }
+
+                        <div className="quantity-controls">
+                            <span className="action" onClick={() => decreaseQuantity()}>-</span>
+                            <span className="quantity">{quantity}</span>
+                            <span className="action" onClick={() => increaseQuantity()}>+</span>
+                        </div>
 
                         <Button 
                             theme="gold" 
