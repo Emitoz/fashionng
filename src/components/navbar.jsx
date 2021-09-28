@@ -2,8 +2,6 @@ import { useState } from 'react';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-import { CartContext } from '../context/cart';
-import { AuthContext } from '../context/auth';
 import { auth } from '../firebase/firebase.utils';
 import { products as allProducts } from '../context/products';
 import { categories as allCategories } from '../context/categories';
@@ -15,10 +13,9 @@ import logo from '../assets/img/Logo.svg';
 import logoSm from '../assets/img/Logo-sm.svg';
 import menuIcon from '../assets/img/menu-icon.svg';
 import { connect } from 'react-redux';
+import CartButton from './cartButton';
 
 const Navbar = ({ currentUser }) => {
-    // const { currentUser } = useContext(AuthContext);
-    const { itemCount, setCartOpen } = useContext(CartContext);
     const { searchMode, setSearchMode } = useContext(CommonContext);
 
     // For search
@@ -38,8 +35,6 @@ const Navbar = ({ currentUser }) => {
         console.log(products);
         console.log(categories);
     }
-
-    console.log(currentUser);
 
     return (
         <>
@@ -70,12 +65,7 @@ const Navbar = ({ currentUser }) => {
                             <div className="search" onClick={() => setSearchMode(true)}>
                                 <i className="feather-search"></i>
                             </div>
-                            <div>
-                                <div className="cart-btn" onClick={() => setCartOpen(true)}>
-                                    <i className="feather-shopping-bag "></i>
-                                    {itemCount > 0 && <span className="item-counter">{itemCount}</span>}
-                                </div>
-                            </div>
+                            <CartButton />
                         </div>
                     </nav>
                 </div>

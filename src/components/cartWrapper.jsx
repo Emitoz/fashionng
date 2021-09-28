@@ -5,19 +5,21 @@ import { Button } from "./button"
 import { CartItem } from "./cartItem"
 
 import emptyCart from "../assets/img/empty-cart.svg";
+import { connect } from "react-redux"
+import { toggleCartHidden } from "../redux/cart/cart.actions"
 
-export const CartWrapper = () => {
+const CartWrapper = ({ toggleCartHidden, hidden }) => {
 
-    const { items, itemCount, cartOpen, setCartOpen, priceTotal } = useContext(CartContext);
+    const { items, itemCount, priceTotal } = useContext(CartContext);
 
     return (
         <>
             {
-                cartOpen &&
+                hidden === false &&
                 <div className="cart-wrapper">
                     <div className="cart-header">
                         <h5>My Cart</h5>
-                        <span className="close-cart" onClick={() => setCartOpen(false)}><i className="feather-x"></i></span>
+                        <span className="close-cart" onClick={toggleCartHidden}><i className="feather-x"></i></span>
                     </div>
                     <div className="gray-line"></div>
 
@@ -42,7 +44,7 @@ export const CartWrapper = () => {
                             </div>
                         }
                         <div className="proceed">
-                            <Button clickHandler={() => setCartOpen(false)} text="Continue shopping" theme="ghost-dark" className="continue-shopping"/>
+                            <Button clickHandler={toggleCartHidden} text="Continue shopping" theme="ghost-dark" className="continue-shopping"/>
                             {
                                 itemCount > 0 &&
                                 <Link to="/checkout">
@@ -56,3 +58,16 @@ export const CartWrapper = () => {
         </>
     )
 }
+
+const mapStateToProps = ({ cart: { hidden } }) => ({
+    hidden
+});
+
+const mapDispatchToProps = dispatch => ({
+    toggleCartHidden: () => dispatch(toggleCartHidden())
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(CartWrapper);
