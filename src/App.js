@@ -8,9 +8,9 @@ import { onSnapshot } from "@firebase/firestore";
 
 import { Main } from "./Main";
 import { HomePage } from "./pages/homepage";
-import { Checkout } from "./pages/checkout";
+import Checkout from "./pages/checkout";
 import { CategoryProducts } from "./pages/category-products";
-import { ProductDetails } from "./pages/product-details";
+import ProductDetails from "./pages/product-details";
 import { Login } from "./pages/auth/login";
 import { Register } from "./pages/auth/register";
 

@@ -1,14 +1,13 @@
 import { useContext } from "react"
+import { connect } from "react-redux";
 import { Button } from "../../components/button";
 import { CartItem } from "../../components/cartItem";
 import { FormInput } from "../../components/formInput"
 import { CartContext } from "../../context/cart";
 
-export const Checkout = (props) => {
+const Checkout = ({ cartItems }) => {
 
     const { items, priceTotal } = useContext(CartContext);
-
-    console.log(props);
 
     return(
         <section className="checkout">
@@ -29,7 +28,7 @@ export const Checkout = (props) => {
                         <div className="cart">
                             <h5>Order summary</h5>
                             <div className="cart-item-list">
-                                {items.map(item => <CartItem item={item} key={item.id} />)}
+                                {cartItems.map(item => <CartItem item={item} key={item.id} />)}
                             </div>
                             <div className="total-proceed">
                                 <div className="cart-total">
@@ -48,3 +47,11 @@ export const Checkout = (props) => {
         </section>
     )
 }
+
+const mapStateToProps = ({ cart: { cartItems } }) => ({
+    cartItems
+});
+
+export default connect(
+    mapStateToProps
+)(Checkout);

@@ -1,38 +1,18 @@
 import { useState } from "react";
-import { useContext } from "react";
 import { useLocation } from "react-router";
+
+import { connect } from "react-redux";
+import { addItemToCart } from "../../redux/cart/cart.actions";
+
 import { Button } from "../../components/button";
-import { CartContext } from "../../context/cart";
 import { Gallery } from "./gallery";
 
-export const ProductDetails = () => {
+const ProductDetails = ({ addItemToCart }) => {
     const { state: {product} } = useLocation();
-
-    const { items, setItems, itemCount, setItemCount, priceTotal, setPriceTotal } = useContext(CartContext);
 
     const [ activeSize, setActiveSize ] = useState(product.sizes ? product.sizes[0] : null);
     const [ activeColor, setActiveColor ] = useState(product.colors ? product.colors[0] : null);
     const [ quantity, setQuantity ] = useState(1);
-
-    const addItemToCart = product => {
-        if (items.some(item => item.id === product.id)) {
-            // setItems(items.map(item => item.id === product.id ? { ...product, quantity: product.quantity + 1 } : item));
-            return;
-        };
-        setItems([...items, {...product, quantity, color: activeColor, size: activeSize}]);
-        setItemCount(itemCount + 1);
-        setPriceTotal(priceTotal + product.price);
-    }
-
-    const increaseQuantity = () => {
-        setQuantity(quantity + 1);
-    }
-
-    const decreaseQuantity = () => {
-        if (quantity > 1) {
-            setQuantity(quantity - 1);
-        }
-    }
 
     return (
         <section>
@@ -80,11 +60,11 @@ export const ProductDetails = () => {
                             </div>
                         }
 
-                        <div className="quantity-controls">
+                        {/* <div className="quantity-controls">
                             <span className="action" onClick={() => decreaseQuantity()}>-</span>
                             <span className="quantity">{quantity}</span>
                             <span className="action" onClick={() => increaseQuantity()}>+</span>
-                        </div>
+                        </div> */}
 
                         <Button 
                             theme="gold" 
@@ -98,3 +78,12 @@ export const ProductDetails = () => {
         </section>
     )
 }
+
+const mapDispatchToProps = dispatch => ({
+    addItemToCart: item => dispatch(addItemToCart(item))
+});
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(ProductDetails);

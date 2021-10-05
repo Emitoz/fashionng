@@ -8,7 +8,7 @@ import emptyCart from "../assets/img/empty-cart.svg";
 import { connect } from "react-redux"
 import { toggleCartHidden } from "../redux/cart/cart.actions"
 
-const CartWrapper = ({ toggleCartHidden, hidden }) => {
+const CartWrapper = ({ toggleCartHidden, hidden, cartItems }) => {
 
     const { items, itemCount, priceTotal } = useContext(CartContext);
 
@@ -24,9 +24,9 @@ const CartWrapper = ({ toggleCartHidden, hidden }) => {
                     <div className="gray-line"></div>
 
                     {
-                        itemCount > 0 ?
+                        cartItems.length > 0 ?
                             <div className="cart-item-list">
-                                {items.map(item => <CartItem key={item.id} item={item}/>)}
+                                {cartItems.map(item => <CartItem key={item.id} item={item}/>)}
                             </div>
                         :
                         <div className="empty-cart">
@@ -38,7 +38,7 @@ const CartWrapper = ({ toggleCartHidden, hidden }) => {
 
                     <div className="total-proceed">
                         {
-                            itemCount > 0 && 
+                            cartItems.length > 0 && 
                             <div className="cart-total">
                                 <span className="total-price">&#8358;{priceTotal}</span> <span className="total-text">TOTAL</span>
                             </div>
@@ -46,7 +46,7 @@ const CartWrapper = ({ toggleCartHidden, hidden }) => {
                         <div className="proceed">
                             <Button clickHandler={toggleCartHidden} text="Continue shopping" theme="ghost-dark" className="continue-shopping"/>
                             {
-                                itemCount > 0 &&
+                                cartItems.length > 0 &&
                                 <Link to="/checkout">
                                     <Button text="Proceed to checkout" theme="dark" icon="feather-shopping-cart"/>
                                 </Link>
@@ -59,8 +59,9 @@ const CartWrapper = ({ toggleCartHidden, hidden }) => {
     )
 }
 
-const mapStateToProps = ({ cart: { hidden } }) => ({
-    hidden
+const mapStateToProps = ({ cart: { hidden, cartItems } }) => ({
+    hidden,
+    cartItems
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,26 +1,24 @@
 import { connect } from "react-redux";
 import { toggleCartHidden } from "../redux/cart/cart.actions";
 
-const CartButton = ({ toggleCartHidden }) => {
-
-    // const handleCartToggle = () => {
-    //     console.log('Clicked');
-    //     toggleCartHidden();
-    // }
-
+const CartButton = ({ toggleCartHidden, cartItems }) => {
     return (
         <div className="cart-btn" onClick={toggleCartHidden}>
             <i className="feather-shopping-bag "></i>
-            {/* {itemCount > 0 && <span className="item-counter">{itemCount}</span>} */}
+            {cartItems.length > 0 && <span className="item-counter">{cartItems.length}</span>}
         </div>
     )
 }
+
+const mapStateToProps = ({ cart: { cartItems } }) => ({
+    cartItems
+});
 
 const mapDispatchToProps = dispatch => ({
     toggleCartHidden: () => dispatch(toggleCartHidden())
 });
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(CartButton);
