@@ -7,6 +7,7 @@ import { CartItem } from "./cartItem"
 import emptyCart from "../assets/img/empty-cart.svg";
 import { connect } from "react-redux"
 import { toggleCartHidden } from "../redux/cart/cart.actions"
+import { selectCartItems } from "../redux/cart/cart.selectors"
 
 const CartWrapper = ({ toggleCartHidden, hidden, cartItems }) => {
 
@@ -59,9 +60,9 @@ const CartWrapper = ({ toggleCartHidden, hidden, cartItems }) => {
     )
 }
 
-const mapStateToProps = ({ cart: { hidden, cartItems } }) => ({
-    hidden,
-    cartItems
+const mapStateToProps = (state) => ({
+    hidden: state.cart.hidden,
+    cartItems: selectCartItems(state)
 });
 
 const mapDispatchToProps = dispatch => ({

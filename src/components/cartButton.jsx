@@ -1,17 +1,18 @@
 import { connect } from "react-redux";
 import { toggleCartHidden } from "../redux/cart/cart.actions";
+import { selectCartItemsCount } from "../redux/cart/cart.selectors";
 
-const CartButton = ({ toggleCartHidden, cartItems }) => {
+const CartButton = ({ toggleCartHidden, itemCount }) => {
     return (
         <div className="cart-btn" onClick={toggleCartHidden}>
             <i className="feather-shopping-bag "></i>
-            {cartItems.length > 0 && <span className="item-counter">{cartItems.length}</span>}
+            {itemCount > 0 && <span className="item-counter">{itemCount}</span>}
         </div>
     )
 }
 
-const mapStateToProps = ({ cart: { cartItems } }) => ({
-    cartItems
+const mapStateToProps = state => ({
+    itemCount: selectCartItemsCount(state)
 });
 
 const mapDispatchToProps = dispatch => ({
