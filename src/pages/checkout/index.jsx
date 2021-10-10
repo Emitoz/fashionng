@@ -1,9 +1,10 @@
 import { useContext } from "react"
 import { connect } from "react-redux";
 import { Button } from "../../components/button";
-import { CartItem } from "../../components/cartItem";
+import CartItem from "../../components/cartItem";
 import { FormInput } from "../../components/formInput"
 import { CartContext } from "../../context/cart";
+import { selectCartItems } from "../../redux/cart/cart.selectors";
 
 const Checkout = ({ cartItems }) => {
 
@@ -48,8 +49,8 @@ const Checkout = ({ cartItems }) => {
     )
 }
 
-const mapStateToProps = ({ cart: { cartItems } }) => ({
-    cartItems
+const mapStateToProps = state => ({
+    cartItems: selectCartItems(state)
 });
 
 export default connect(

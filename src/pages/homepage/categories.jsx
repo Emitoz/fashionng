@@ -1,6 +1,8 @@
+import { connect } from "react-redux";
 import { Category } from "../../components/category";
+import { selectCategories } from "../../redux/shop/shop.selectors";
 
-export const Categories = ({ categories }) => {
+const Categories = ({ categories }) => {
     return (
         <section className="categories">
             <div className="container">
@@ -21,3 +23,11 @@ export const Categories = ({ categories }) => {
         </section>
     )
 }
+
+const mapStateToProps = state => ({
+    categories: selectCategories(state)
+});
+
+export default connect(
+    mapStateToProps
+)(Categories);

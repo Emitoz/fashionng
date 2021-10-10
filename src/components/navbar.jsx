@@ -1,11 +1,7 @@
 import { useState } from 'react';
-import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import { auth } from '../firebase/firebase.utils';
-import { products as allProducts } from '../context/products';
-import { categories as allCategories } from '../context/categories';
-import { CommonContext } from '../context/common';
 import { FormInput } from './formInput';
 import { SearchResults } from './searchResults';
 
@@ -14,27 +10,16 @@ import logoSm from '../assets/img/Logo-sm.svg';
 import menuIcon from '../assets/img/menu-icon.svg';
 import { connect } from 'react-redux';
 import CartButton from './cartButton';
+import { selectCurrentUser } from '../redux/user/user.selector';
+import { toggleSearchMode } from '../redux/search/search.actions';
+import { getSearchResults } from '../redux/search/search.utils';
+import { selectCategories, selectProducts } from '../redux/shop/shop.selectors';
 
-const Navbar = ({ currentUser }) => {
-    const { searchMode, setSearchMode } = useContext(CommonContext);
+const Navbar = ({ currentUser, searchMode, toggleSearchMode, categories, products }) => {
 
-    // For search
-    const [products, setProducts] = useState([]);
-    const [categories, setCategories] = useState([]);
     const [ keyword, setKeyword ] = useState('');
 
-    const handleSearch = e => {
-        setKeyword(e.target.value);
-
-        setProducts(allProducts
-            .filter(product => product.name.toLowerCase().includes(keyword.toLowerCase()) || product.category.toLowerCase().includes(keyword.toLowerCase())));
-        
-        setCategories(allCategories
-            .filter(category => category.name.toLowerCase().includes(keyword.toLowerCase())));
-        
-        console.log(products);
-        console.log(categories);
-    }
+    const searchResults = getSearchResults(categories, products, keyword);
 
     return (
         <>
@@ -54,7 +39,7 @@ const Navbar = ({ currentUser }) => {
                             </Link>
                         </div>
                         <ul className="nav-links">
-                            <li className="nav-link-item"><a href="#">Shop</a></li>
+                            <li className="nav-link-item"><Link to="/shop">Shop</Link></li>
                             <li className="nav-link-item"><a href="#">Contact</a></li>
                             {
                                 currentUser !== null ? <li className="nav-link-item" onClick={() => auth.signOut()}><a href="#"><i className="feather-user"></i> {currentUser.displayName}</a></li>
@@ -62,7 +47,7 @@ const Navbar = ({ currentUser }) => {
                             }
                         </ul>
                         <div className="search-and-cart">
-                            <div className="search" onClick={() => setSearchMode(true)}>
+                            <div className="search" onClick={toggleSearchMode}>
                                 <i className="feather-search"></i>
                             </div>
                             <CartButton />
@@ -87,7 +72,7 @@ const Navbar = ({ currentUser }) => {
                             </div>
                         </div>
                         <ul className="nav-links">
-                            <li className="nav-link-item"><a href="#">Shop</a></li>
+                            <li className="nav-link-item"><Link to="/shop">Shop</Link></li>
                             <li className="nav-link-item"><a href="#">Contact</a></li>
                             <li className="nav-link-item"><Link to="/login">Sign in</Link></li>
                         </ul>
@@ -111,14 +96,14 @@ const Navbar = ({ currentUser }) => {
             <>
                 <div className="search-wrapper">
                     <div className="search-bar">
-                        <FormInput placeholder="Search" autofocus={true} value={keyword} onChange={(e) => handleSearch(e)}/>
+                        <FormInput placeholder="Search" autofocus={true} value={keyword} onChange={(e) => setKeyword(e.target.value)}/>
                         <span className="search-button"><i className="feather-search"></i></span>
                     </div>
-                    <span className="close-search" onClick={() => setSearchMode(false)}>
+                    <span className="close-search" onClick={toggleSearchMode}>
                         <i className="feather-x"></i>
                     </span>
                 </div>
-                { keyword && <SearchResults keyword={keyword} products={products} categories={categories}/> }
+                { keyword && <SearchResults keyword={keyword} products={searchResults.products} categories={searchResults.categories}/> }
             </>
         }
     </>
@@ -126,7 +111,17 @@ const Navbar = ({ currentUser }) => {
 }
 
 const mapStateToProps = state => ({
-    currentUser: state.user.currentUser
+    currentUser: selectCurrentUser(state),
+    searchMode: state.search.searchMode,
+    categories: selectCategories(state),
+    products: selectProducts(state)
 });
 
-export default connect(mapStateToProps)(Navbar);
+const mapDispatchToProps = dispatch => ({
+    toggleSearchMode: () => dispatch(toggleSearchMode())
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Navbar);

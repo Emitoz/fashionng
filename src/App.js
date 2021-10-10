@@ -8,6 +8,7 @@ import { onSnapshot } from "@firebase/firestore";
 
 import { Main } from "./Main";
 import { HomePage } from "./pages/homepage";
+import Shop from './pages/shop';
 import Checkout from "./pages/checkout";
 import { CategoryProducts } from "./pages/category-products";
 import ProductDetails from "./pages/product-details";
@@ -18,6 +19,7 @@ import { CartProvider } from "./context/cart";
 import { setCurrentUser } from "./redux/user/user.actions";
 
 import "./assets/fonts/feather.css";
+import { selectCurrentUser } from "./redux/user/user.selector";
 
 const App = (props) => {
 
@@ -41,6 +43,7 @@ const App = (props) => {
       <CartProvider>
         <Route exact path="/"><Main Content={HomePage}/></Route>
         <Route path="/checkout"><Main Content={Checkout}/></Route>
+        <Route path="/shop"><Main Content={Shop}/></Route>
         <Route path="/categories/:category"><Main Content={CategoryProducts}/></Route>
         <Route path="/products/:product"><Main Content={ProductDetails}/></Route>
         
@@ -51,8 +54,8 @@ const App = (props) => {
   );
 }
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser
+const mapStateToProps = state => ({
+  currentUser: selectCurrentUser(state)
 });
 
 const mapDispatchToProps = dispatch => ({

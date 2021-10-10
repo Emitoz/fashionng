@@ -1,13 +1,15 @@
 import { useContext } from "react"
 import { Link } from "react-router-dom"
+import { createStructuredSelector } from 'reselect'
+
 import { CartContext } from "../context/cart"
 import { Button } from "./button"
-import { CartItem } from "./cartItem"
+import CartItem from "./cartItem"
 
 import emptyCart from "../assets/img/empty-cart.svg";
 import { connect } from "react-redux"
 import { toggleCartHidden } from "../redux/cart/cart.actions"
-import { selectCartItems } from "../redux/cart/cart.selectors"
+import { selectCartHidden, selectCartItems } from "../redux/cart/cart.selectors"
 
 const CartWrapper = ({ toggleCartHidden, hidden, cartItems }) => {
 
@@ -49,7 +51,7 @@ const CartWrapper = ({ toggleCartHidden, hidden, cartItems }) => {
                             {
                                 cartItems.length > 0 &&
                                 <Link to="/checkout">
-                                    <Button text="Proceed to checkout" theme="dark" icon="feather-shopping-cart"/>
+                                    <Button text="Proceed to checkout" theme="dark" icon="feather-shopping-cart" clickHandler={toggleCartHidden}/>
                                 </Link>
                             }
                         </div>
@@ -60,9 +62,9 @@ const CartWrapper = ({ toggleCartHidden, hidden, cartItems }) => {
     )
 }
 
-const mapStateToProps = (state) => ({
-    hidden: state.cart.hidden,
-    cartItems: selectCartItems(state)
+const mapStateToProps = createStructuredSelector({
+    hidden: selectCartHidden,
+    cartItems: selectCartItems
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,8 +1,11 @@
 import heroShot from "../../assets/img/hero shot.jpg";
 import { Button } from "../../components/button";
 import TypeIt from "typeit-react";
+import { connect } from "react-redux";
+import { selectCurrentUser } from "../../redux/user/user.selector";
+import { Link } from "react-router-dom";
 
-export const Hero = () => {
+const Hero = ({ currentUser }) => {
     return (
         <section className="hero">
             <div className="container">
@@ -19,8 +22,8 @@ export const Hero = () => {
                         </h1>
                         <p>Explore our amazing catalog of items, we’ve got a fit for all sizes, moods and tastes.</p>
                         <div className="hero-btns">
-                            <Button theme="gold" text="Start shopping" icon="feather-shopping-cart"/>
-                            <Button theme="ghost" text="Join us"/>
+                            <Link to="/shop"><Button theme="gold" text="Start shopping" icon="feather-shopping-cart"/></Link>
+                            {!currentUser && <Link to="/register"><Button theme="ghost" text="Join us"/></Link>}
                         </div>
                     </div>
                     <div className="hero-image">
@@ -31,3 +34,11 @@ export const Hero = () => {
     </section>
     )
 }
+
+const mapStateToProps = state => ({
+    currentUser: selectCurrentUser(state)
+});
+
+export default connect(
+    mapStateToProps
+)(Hero);
