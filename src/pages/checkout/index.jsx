@@ -1,14 +1,11 @@
-import { useContext } from "react"
 import { connect } from "react-redux";
 import { Button } from "../../components/button";
 import CartItem from "../../components/cartItem";
 import { FormInput } from "../../components/formInput"
-import { CartContext } from "../../context/cart";
-import { selectCartItems } from "../../redux/cart/cart.selectors";
+import StripeCheckoutButton from "../../components/stripeButton";
+import { selectCartItems, selectPriceTotal } from "../../redux/cart/cart.selectors";
 
-const Checkout = ({ cartItems }) => {
-
-    const { items, priceTotal } = useContext(CartContext);
+const Checkout = ({ cartItems, priceTotal }) => {
 
     return(
         <section className="checkout">
@@ -41,7 +38,7 @@ const Checkout = ({ cartItems }) => {
                     <div className="gray-line"></div>
                     <div className="confirm-order">
                         <p><i className="feather-info"></i> By clicking on confirm order you approve payment of <span className="total">&#8358;{priceTotal}</span> for the above items</p>
-                        <Button text="Confirm order" theme="gold" icon="feather-arrow-right-circle"/>
+                        <StripeCheckoutButton price={priceTotal}/>
                     </div>
                 </form>
             </div>
@@ -50,7 +47,8 @@ const Checkout = ({ cartItems }) => {
 }
 
 const mapStateToProps = state => ({
-    cartItems: selectCartItems(state)
+    cartItems: selectCartItems(state),
+    priceTotal: selectPriceTotal(state)
 });
 
 export default connect(

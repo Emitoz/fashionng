@@ -1,9 +1,10 @@
-import heroShot from "../../assets/img/hero shot.jpg";
-import { Button } from "../../components/button";
-import TypeIt from "typeit-react";
 import { connect } from "react-redux";
-import { selectCurrentUser } from "../../redux/user/user.selector";
 import { Link } from "react-router-dom";
+import TypeIt from "typeit-react";
+
+import { selectCurrentUser } from "../../redux/user/user.selector";
+import { Button } from "../../components/button";
+import heroShot from "../../assets/img/hero shot.jpg";
 
 const Hero = ({ currentUser }) => {
     return (

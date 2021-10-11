@@ -3,7 +3,8 @@ import { addCartItem, decreaseItemQuantity, removeCartItem } from "./cart.utils"
 
 const INITIAL_STATE = {
     hidden: true,
-    cartItems: []
+    cartItems: [],
+    priceTotal: 0
 }
 
 const cartReducer = (state = INITIAL_STATE, action) => {

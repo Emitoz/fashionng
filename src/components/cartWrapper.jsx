@@ -1,19 +1,15 @@
-import { useContext } from "react"
 import { Link } from "react-router-dom"
 import { createStructuredSelector } from 'reselect'
 
-import { CartContext } from "../context/cart"
 import { Button } from "./button"
 import CartItem from "./cartItem"
 
 import emptyCart from "../assets/img/empty-cart.svg";
 import { connect } from "react-redux"
 import { toggleCartHidden } from "../redux/cart/cart.actions"
-import { selectCartHidden, selectCartItems } from "../redux/cart/cart.selectors"
+import { selectCartHidden, selectCartItems, selectPriceTotal } from "../redux/cart/cart.selectors"
 
-const CartWrapper = ({ toggleCartHidden, hidden, cartItems }) => {
-
-    const { items, itemCount, priceTotal } = useContext(CartContext);
+const CartWrapper = ({ toggleCartHidden, hidden, cartItems, priceTotal }) => {
 
     return (
         <>
@@ -64,7 +60,8 @@ const CartWrapper = ({ toggleCartHidden, hidden, cartItems }) => {
 
 const mapStateToProps = createStructuredSelector({
     hidden: selectCartHidden,
-    cartItems: selectCartItems
+    cartItems: selectCartItems,
+    priceTotal: selectPriceTotal
 });
 
 const mapDispatchToProps = dispatch => ({
