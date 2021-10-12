@@ -36,7 +36,7 @@ const App = (props) => {
         setCurrentUser(userAuth);
     });
     return () => {};
-  }, []);
+  }, [setCurrentUser]);
 
   return (
     <Switch>

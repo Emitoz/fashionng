@@ -17,8 +17,7 @@ const StripeCheckoutButton = ({ price }) => {
             amount={priceForStripe}
             panelLabel="Pay now"
             token={onToken}
-            stripeKey={publishableKey}
-        >
+            stripeKey={publishableKey}>
             <Button type="button" theme="gold" text="Confirm order and pay now" icon="feather-arrow-right-circle"/>
         </StripeCheckout>
     )

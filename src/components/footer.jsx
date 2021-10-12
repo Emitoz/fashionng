@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import logoDark from '../assets/img/Logo dark.svg';
 
 export const Footer = () => {
@@ -6,30 +7,30 @@ export const Footer = () => {
             <div className="container">
                 <div className="footer-flex">
                     <div className="brand">
-                        <a href="#">
+                        <Link to="/">
                             <img className="logo" src={logoDark} alt=""/>
-                        </a>
+                        </Link>
                     </div>
                     <ul className="contact-links">
                         <li className="contact-link">
-                            <a href="#"><i className="feather-map-pin"></i> Lagos, Nigeria</a>
+                            <Link to="/"><i className="feather-map-pin"></i> Lagos, Nigeria</Link>
                         </li>
                         <li className="contact-link">
-                            <a href="#"><i className="feather-smartphone"></i> +234 8134225805</a>
+                            <Link to="/"><i className="feather-smartphone"></i> +234 8134225805</Link>
                         </li>
                         <li className="contact-link">
-                            <a href="#"><i className="feather-at-sign"></i> info@fashion.ng</a>
+                            <Link to="/"><i className="feather-at-sign"></i> info@fashion.ng</Link>
                         </li>
                     </ul>
                     <ul className="social-links">
                         <li className="social-link">
-                            <a href="#"><i className="feather-instagram"></i></a>
+                            <Link to="/"><i className="feather-instagram"></i></Link>
                         </li>
                         <li className="social-link">
-                            <a href="#"><i className="feather-facebook"></i></a>
+                            <Link to="/"><i className="feather-facebook"></i></Link>
                         </li>
                         <li className="social-link">
-                            <a href="#"><i className="feather-twitter"></i></a>
+                            <Link to="/"><i className="feather-twitter"></i></Link>
                         </li>
                     </ul>
                 </div>

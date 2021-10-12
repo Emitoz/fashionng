@@ -14,6 +14,17 @@ const ProductDetails = ({ addItemToCart }) => {
     const [ activeColor, setActiveColor ] = useState(product.colors ? product.colors[0] : null);
     const [ quantity, setQuantity ] = useState(1);
 
+    const addProductToCart = () => {
+        addItemToCart({ 
+            ...product, 
+            quantity: quantity, 
+            color: activeColor, 
+            size: activeSize 
+        });
+
+        setQuantity(1);
+    }
+
     return (
         <section>
             <div className="container">
@@ -60,17 +71,17 @@ const ProductDetails = ({ addItemToCart }) => {
                             </div>
                         }
 
-                        {/* <div className="quantity-controls">
-                            <span className="action" onClick={() => decreaseQuantity()}>-</span>
+                        <div className="quantity-controls">
+                            <span className="action" onClick={() => setQuantity(quantity - 1)}>-</span>
                             <span className="quantity">{quantity}</span>
-                            <span className="action" onClick={() => increaseQuantity()}>+</span>
-                        </div> */}
+                            <span className="action" onClick={() => setQuantity(quantity + 1)}>+</span>
+                        </div>
 
                         <Button 
                             theme="gold" 
                             text="Add to cart" 
                             icon="feather-shopping-cart" 
-                            clickHandler={() => addItemToCart(product)}
+                            clickHandler={addProductToCart}
                         />
                     </div>
                 </div>

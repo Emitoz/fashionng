@@ -1,42 +1,9 @@
-import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 
-import { CartContext } from "../context/cart";
 import { addItemToCart, decreaseQuantity, removeItem } from "../redux/cart/cart.actions";
 
 const CartItem = ({ item, removeCartItem, addItemToCart, decreaseQuantity }) => {
-
-    const { items, setItems, itemCount, setItemCount, priceTotal, setPriceTotal } = useContext(CartContext);
-
-    // const removeItem = item => {
-    //     setItems(items.filter(cartItem => cartItem.id !== item.id));
-    //     setItemCount(itemCount - 1);
-    //     setPriceTotal(priceTotal - (item.price * item.quantity))
-    // }
-
-    // const increaseQuantity = currentItem => {
-    //     setItems(items.map(item => 
-    //         item.id === currentItem.id ? 
-    //         { ...currentItem, quantity: currentItem.quantity + 1 }
-    //         :
-    //         item));
-    //     setPriceTotal(priceTotal + currentItem.price);
-    // }
-
-    // const reduceQuantity = currentItem => {
-    //     setPriceTotal(priceTotal - currentItem.price);
-    //     if (currentItem.quantity === 1) { 
-    //         removeItem(currentItem);
-    //         return;
-    //     }
-    //     setItems(items.map(item => 
-    //         item.id === currentItem.id ?
-    //         { ...currentItem, quantity: currentItem.quantity - 1 }
-    //         :
-    //         item 
-    //         ));
-    // }
 
     return (
         <div className="cart-item">

@@ -40,9 +40,9 @@ const Navbar = ({ currentUser, searchMode, toggleSearchMode, categories, product
                         </div>
                         <ul className="nav-links">
                             <li className="nav-link-item"><Link to="/shop">Shop</Link></li>
-                            <li className="nav-link-item"><a href="#">Contact</a></li>
+                            <li className="nav-link-item"><Link to="/">Contact</Link></li>
                             {
-                                currentUser !== null ? <li className="nav-link-item" onClick={() => auth.signOut()}><a href="#"><i className="feather-user"></i> {currentUser.displayName}</a></li>
+                                currentUser !== null ? <li className="nav-link-item" onClick={() => auth.signOut()}><Link to="/"><i className="feather-user"></i> {currentUser.displayName}</Link></li>
                                 : <li className="nav-link-item"><Link to="/login">Sign in</Link></li>
                             }
                         </ul>
@@ -73,18 +73,18 @@ const Navbar = ({ currentUser, searchMode, toggleSearchMode, categories, product
                         </div>
                         <ul className="nav-links">
                             <li className="nav-link-item"><Link to="/shop">Shop</Link></li>
-                            <li className="nav-link-item"><a href="#">Contact</a></li>
+                            <li className="nav-link-item"><Link to="/">Contact</Link></li>
                             <li className="nav-link-item"><Link to="/login">Sign in</Link></li>
                         </ul>
                         <ul className="social-links">
                             <li className="social-link">
-                                <a href="#"><i className="feather-instagram"></i></a>
+                                <Link to="/"><i className="feather-instagram"></i></Link>
                             </li>
                             <li className="social-link">
-                                <a href="#"><i className="feather-facebook"></i></a>
+                                <Link to="/"><i className="feather-facebook"></i></Link>
                             </li>
                             <li className="social-link">
-                                <a href="#"><i className="feather-twitter"></i></a>
+                                <Link to="/"><i className="feather-twitter"></i></Link>
                             </li>
                         </ul>
                     </div>

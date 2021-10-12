@@ -1,5 +1,4 @@
 import { connect } from "react-redux";
-import { Button } from "../../components/button";
 import CartItem from "../../components/cartItem";
 import { FormInput } from "../../components/formInput"
 import StripeCheckoutButton from "../../components/stripeButton";

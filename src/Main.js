@@ -1,4 +1,3 @@
-import { useContext, useEffect } from "react"
 import CartWrapper from "./components/cartWrapper"
 import { Footer } from "./components/footer"
 import Navbar from "./components/navbar"

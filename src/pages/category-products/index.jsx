@@ -7,8 +7,8 @@ export const CategoryProducts = () => {
 
     const { category } = useParams();
 
-    const categoryProducts = products.
-        filter(product => category.toLowerCase() === product.category.toLowerCase());
+    const categoryProducts = products
+        .filter(product => category.toLowerCase() === product.category.toLowerCase());
 
     return (
         <section>
