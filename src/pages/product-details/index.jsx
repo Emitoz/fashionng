@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 
 import { connect } from "react-redux";
@@ -9,6 +9,11 @@ import { Gallery } from "./gallery";
 
 const ProductDetails = ({ addItemToCart }) => {
     const { state: {product} } = useLocation();
+
+    useEffect(() => {
+        document.title = `${product.name} | Fashionng`;
+        return () => {};
+    }, [product]);
 
     const [ activeSize, setActiveSize ] = useState(product.sizes ? product.sizes[0] : null);
     const [ activeColor, setActiveColor ] = useState(product.colors ? product.colors[0] : null);

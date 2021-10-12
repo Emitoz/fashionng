@@ -8,8 +8,15 @@ import { FormInput } from "../../components/formInput";
 
 import logo from '../../assets/img/Logo.svg';
 import bgImage from '../../assets/img/auth-bg.jpg';
+import { useEffect } from "react";
 
 export const Register = () => {
+
+    
+    useEffect(() => {
+        document.title = "Create account | Fashionng";
+        return () => {};
+    }, []);
 
     const [user, setUser] = useState({
         displayName: "",

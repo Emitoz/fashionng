@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { connect } from "react-redux";
 import CartItem from "../../components/cartItem";
 import { FormInput } from "../../components/formInput"
@@ -5,6 +6,11 @@ import StripeCheckoutButton from "../../components/stripeButton";
 import { selectCartItems, selectPriceTotal } from "../../redux/cart/cart.selectors";
 
 const Checkout = ({ cartItems, priceTotal }) => {
+
+    useEffect(() => {
+        document.title = "Checkout | Fashionng";
+        return () => {};;
+    }, []);
 
     return(
         <section className="checkout">

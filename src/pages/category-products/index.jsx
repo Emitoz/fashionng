@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useParams } from "react-router";
 import { Product } from "../../components/product"
 
@@ -7,10 +8,17 @@ export const CategoryProducts = () => {
 
     const { category } = useParams();
 
+    useEffect(() => {
+        document.title = `${category} | Fashionng`;
+        return () => {};
+    }, [category])
+
     const categoryProducts = products
         .filter(product => category.toLowerCase() === product.category.toLowerCase());
 
     return (
+
+
         <section>
             <div className="container">
                 <h1 className="page-heading">{category}</h1>

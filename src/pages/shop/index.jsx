@@ -1,8 +1,15 @@
+import { useEffect } from "react";
 import { connect } from "react-redux";
 import { Product } from "../../components/product";
 import { selectCategories, selectProducts } from "../../redux/shop/shop.selectors";
 
 const Shop = ({ categories, products }) => {
+
+    useEffect(() => {
+        document.title = "Shop | Fashionng";
+        return () => {};
+    }, [])
+
     return (
         <section>
             <div className="container">

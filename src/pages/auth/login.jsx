@@ -8,8 +8,14 @@ import { useState } from "react";
 
 import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
 import { signInWithEmailAndPassword } from "@firebase/auth";
+import { useEffect } from "react";
 
 export const Login = () => {
+
+    useEffect(() => {
+        document.title = "Sign in | Fashionng";
+        return () => {};
+    }, []);
 
     const [user, setUser] = useState({ email: '', password: '' });
 
